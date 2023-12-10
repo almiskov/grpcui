@@ -772,6 +772,7 @@ button#grpc-history-clear, button#grpc-history-save {
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 49.5% .1% 49.5%;
+    max-width: 96vw;
 }
 
 .request-response-tab-request {
@@ -784,4 +785,11 @@ button#grpc-history-clear, button#grpc-history-save {
 
 .request-response-tab-response {
     padding: 20px;
+}
+
+.grpc-response-json-container {
+    max-height: 300px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    overflow: scroll;
 }

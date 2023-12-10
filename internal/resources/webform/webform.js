@@ -1622,7 +1622,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
                         });
 
         setNow.click(function() {
-            var now = (new Date()).toISOString();
+            var now = (new Date()).toISOString().split('.')[0]+"Z";
             var nowSplit = now.split('T', 2);
             date.val(nowSplit[0]);
             time.val(nowSplit[1]);
@@ -2001,7 +2001,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
     function getInitialMessageValue(messageType) {
         switch (messageType) {
             case "google.protobuf.Timestamp":
-                return "1970-01-01T00:00:00Z";
+                return new Date().toISOString().split('.')[0]+"Z";
             case "google.protobuf.Duration":
                 return "0s";
             case "google.protobuf.Int32Value":

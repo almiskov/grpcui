@@ -2362,10 +2362,16 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
                 if (msg.isError) {
                     container.html('<div class="error">Server error processing message #' + (i+1) + '</div>');
                 } else {
-                    const textArea = $('<textarea>');
-                    textArea.val(JSON.stringify(msg.message, null, 2));
-                    textArea.addClass('grpc-response-textarea');
-                    container.append(textArea);
+                    const jsonContainer = $('<div>')
+                    jsonContainer.addClass('grpc-response-json')
+
+                    const pre = $('<pre>')
+                    pre.html(prettyPrintJson.toHtml(msg.message, {
+                        indent: 2
+                    }))
+                    jsonContainer.append(pre);
+
+                    container.append(jsonContainer)
                 }
                 enclosingDiv.append(container);
             }

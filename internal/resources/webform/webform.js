@@ -2366,7 +2366,11 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
                     jsonContainer.addClass('grpc-response-json-container')
 
                     const pre = $('<pre>')
-                    pre.html(prettyPrintJson.toHtml(msg.message))
+                    pre.html(prettyPrintJson.toHtml(msg.message, {
+                        indent: 2,
+                        quoteKeys: true,
+                        trailingCommas: false,
+                    }))
 
                     jsonContainer.append(pre)
 

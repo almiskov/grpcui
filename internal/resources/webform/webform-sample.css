@@ -140,7 +140,7 @@
     z-index: 0;
     border: 1px solid #ccc;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
 #grpc-request-response .grpc-tabcontent.ui-tabs-panel h3 {
@@ -252,6 +252,7 @@ table#grpc-request-metadata-form {
 
 #grpc-request-form {
     margin-bottom: 20px;
+    overflow: scroll;
 }
 
 #grpc-request-form div#root {
@@ -540,6 +541,9 @@ table#grpc-request-metadata-form {
 textarea.grpc-response-textarea {
     font-family: "Courier New", Courier, monospace;
     height: 200px;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: scroll;
 }
 
 #grpc-response-error-details textarea.grpc-response-textarea {
@@ -762,4 +766,22 @@ button#grpc-history-clear, button#grpc-history-save {
     border: 1px solid #dddddd;
     padding: 1em;
     margin-bottom: 1em;
+}
+
+.request-response-tab {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 49.5% .1% 49.5%;
+}
+
+.request-response-tab-request {
+    padding: 20px;
+}
+
+.request-response-tab-divider {
+    border-right: 1px solid #ccc;
+}
+
+.request-response-tab-response {
+    padding: 20px;
 }

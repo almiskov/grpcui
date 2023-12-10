@@ -250,7 +250,8 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
         table.append(row);
         var cell = $('<th>');
         cell.attr('colspan', '3');
-        cell.text(requestType);
+        cell.text(requestType.split('.').slice(-1)[0]);
+
         if (schema.requestStream) {
             cell.prepend('<em>stream</em> ');
         }
@@ -1045,7 +1046,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
             cell.text('<' + mapEntryFields[0].type + ',' + mapEntryFields[1].type + '>');
             cell.prepend('<em>map</em>');
         } else {
-            cell.text(fld.type);
+            cell.text(fld.type.split('.').slice(-1)[0]);
             if (fld.isArray) {
                 cell.prepend('<em>repeated</em> ');
             }

@@ -5,26 +5,7 @@
 
 .grpc-desc {
     margin-bottom: 0;
-}
-
-.grpc-desc td {
-    vertical-align: top;
-}
-
-#grpc-desc-selects td {
-    padding-top: 8px;
-}
-
-.grpc-desc select {
-    height: 30px;
-    font-size: 14px;
-}
-
-.grpc-desc pre {
-    margin: 0 0 0 36px;
-    padding-left: 20px;
-    border-left: 1px solid #d8d8d8;
-    color: #777;
+    display: flex;
 }
 
 button#grpc-descriptions-toggle {

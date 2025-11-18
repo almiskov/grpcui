@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
-	reflectionpb "google.golang.org/grpc/reflection/grpc_reflection_v1alpha"
+	reflectionpb "google.golang.org/grpc/reflection/grpc_reflection_v1"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
@@ -49,7 +49,7 @@ func main() {
 
 	svr := grpc.NewServer()
 	RegisterKitchenSinkServer(svr, &testSvr{})
-	refSvc := reflection.NewServer(reflection.ServerOptions{
+	refSvc := reflection.NewServerV1(reflection.ServerOptions{
 		Services:           svr,
 		DescriptorResolver: sourceinfo.GlobalFiles,
 		ExtensionResolver:  sourceinfo.GlobalFiles,
@@ -74,7 +74,7 @@ func (s testSvr) Exchange(ctx context.Context, m *TestMessage) (*TestMessage, er
 		hdrs := metadata.MD{}
 		tlrs := metadata.MD{}
 		for k, v := range headers {
-			if strings.HasSuffix("-t", k) {
+			if strings.HasSuffix(k, "-t") {
 				tlrs[k] = v
 			} else {
 				hdrs[k] = v
@@ -91,7 +91,7 @@ func (s testSvr) UploadMany(stream KitchenSink_UploadManyServer) error {
 		hdrs := metadata.MD{}
 		tlrs := metadata.MD{}
 		for k, v := range headers {
-			if strings.HasSuffix("-t", k) {
+			if strings.HasSuffix(k, "-t") {
 				tlrs[k] = v
 			} else {
 				hdrs[k] = v
@@ -126,7 +126,7 @@ func (s testSvr) DownloadMany(m *TestMessage, stream KitchenSink_DownloadManySer
 		hdrs := metadata.MD{}
 		tlrs := metadata.MD{}
 		for k, v := range headers {
-			if strings.HasSuffix("-t", k) {
+			if strings.HasSuffix(k, "-t") {
 				tlrs[k] = v
 			} else {
 				hdrs[k] = v
@@ -151,7 +151,7 @@ func (s testSvr) DoManyThings(stream KitchenSink_DoManyThingsServer) error {
 		hdrs := metadata.MD{}
 		tlrs := metadata.MD{}
 		for k, v := range headers {
-			if strings.HasSuffix("-t", k) {
+			if strings.HasSuffix(k, "-t") {
 				tlrs[k] = v
 			} else {
 				hdrs[k] = v

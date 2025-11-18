@@ -11,6 +11,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"math"
 	"mime"
 	"net"
 	"net/http"
@@ -35,7 +36,6 @@ import (
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/metadata"
-	reflectpb "google.golang.org/grpc/reflection/grpc_reflection_v1alpha"
 
 	// Register gzip compressor so compressed responses will work
 	_ "google.golang.org/grpc/encoding/gzip"
@@ -47,6 +47,16 @@ import (
 )
 
 var version = "dev build <no version set>"
+
+var (
+	grpcCurlFlags = []string{
+		"key",
+		"cert",
+		"cacert",
+		"plaintext",
+		"insecure",
+	}
+)
 
 var (
 	exit = os.Exit
@@ -116,6 +126,8 @@ var (
 	maxMsgSz = flags.Int("max-msg-sz", 0, prettify(`
 		The maximum encoded size of a message that grpcui will accept. If not
 		specified, defaults to 4mb.`))
+	emitDefaults = flags.Bool("emit-defaults", true, prettify(`
+		Emit default values for JSON-encoded responses.`))
 	debug   optionalBoolFlag
 	verbose = flags.Bool("v", false, prettify(`
 		Enable verbose output.`))
@@ -349,6 +361,18 @@ func main() {
 	flags.Usage = usage
 	flags.Parse(os.Args[1:])
 
+	var gRPCOptions []string
+	for _, flagName := range grpcCurlFlags {
+		f := flags.Lookup(flagName)
+		if f.Value.String() != f.DefValue {
+			if getter, ok := f.Value.(flag.Getter); ok && getter.Get() == true {
+				gRPCOptions = append(gRPCOptions, fmt.Sprintf("-%s", f.Name))
+			} else {
+				gRPCOptions = append(gRPCOptions, fmt.Sprintf("-%s=%s", f.Name, strconv.Quote(f.Value.String())))
+			}
+		}
+	}
+
 	if *help {
 		usage()
 		os.Exit(0)
@@ -471,13 +495,13 @@ func main() {
 	ctx := context.Background()
 	dialTime := 10 * time.Second
 	if *connectTimeout > 0 {
-		dialTime = time.Duration(*connectTimeout * float64(time.Second))
+		dialTime = floatSecondsToDuration(*connectTimeout)
 	}
 	dialCtx, cancel := context.WithTimeout(ctx, dialTime)
 	defer cancel()
 	var opts []grpc.DialOption
 	if *keepaliveTime > 0 {
-		timeout := time.Duration(*keepaliveTime * float64(time.Second))
+		timeout := floatSecondsToDuration(*keepaliveTime)
 		opts = append(opts, grpc.WithKeepaliveParams(keepalive.ClientParameters{
 			Time:    timeout,
 			Timeout: timeout,
@@ -562,7 +586,8 @@ func main() {
 	if reflection.val {
 		md := grpcurl.MetadataFromHeaders(append(addlHeaders, reflHeaders...))
 		refCtx := metadata.NewOutgoingContext(ctx, md)
-		refClient = grpcreflect.NewClientV1Alpha(refCtx, reflectpb.NewServerReflectionClient(cc))
+		refClient = grpcreflect.NewClientAuto(refCtx, cc)
+		refClient.AllowMissingFileDescriptors()
 		reflSource := grpcurl.DescriptorSourceFromServer(ctx, refClient)
 		if fileSource != nil {
 			descSource = compositeSource{reflSource, fileSource}
@@ -625,13 +650,15 @@ func main() {
 	if examplesOpt != nil {
 		handlerOpts = append(handlerOpts, examplesOpt)
 	}
+	handlerOpts = append(handlerOpts, standalone.EmitDefaults(*emitDefaults))
 	handlerOpts = append(handlerOpts, configureJSandCSS(extraJS, standalone.AddJSFile)...)
 	handlerOpts = append(handlerOpts, configureJSandCSS(extraCSS, standalone.AddCSSFile)...)
 	handlerOpts = append(handlerOpts, configureAssets(otherAssets)...)
+	handlerOpts = append(handlerOpts, standalone.WithGRPCOptions(gRPCOptions))
 
 	handler := standalone.Handler(cc, target, methods, allFiles, handlerOpts...)
 	if *maxTime > 0 {
-		timeout := time.Duration(*maxTime * float64(time.Second))
+		timeout := floatSecondsToDuration(*maxTime)
 		// enforce the timeout by wrapping the handler and inserting a
 		// context timeout for invocation calls
 		orig := handler
@@ -848,6 +875,7 @@ type svcConfig struct {
 }
 
 func getMethods(source grpcurl.DescriptorSource, configs map[string]*svcConfig) ([]*desc.MethodDescriptor, error) {
+	servicesConfigured := len(configs) > 0
 	allServices, err := source.ListServices()
 	if err != nil {
 		return nil, err
@@ -855,7 +883,7 @@ func getMethods(source grpcurl.DescriptorSource, configs map[string]*svcConfig) 
 
 	var descs []*desc.MethodDescriptor
 	for _, svc := range allServices {
-		if svc == "grpc.reflection.v1alpha.ServerReflection" {
+		if svc == "grpc.reflection.v1alpha.ServerReflection" || svc == "grpc.reflection.v1.ServerReflection" {
 			continue
 		}
 		d, err := source.FindSymbol(svc)
@@ -867,7 +895,7 @@ func getMethods(source grpcurl.DescriptorSource, configs map[string]*svcConfig) 
 			return nil, fmt.Errorf("%s should be a service descriptor but instead is a %T", d.GetFullyQualifiedName(), d)
 		}
 		cfg := configs[svc]
-		if cfg == nil && len(configs) != 0 {
+		if cfg == nil && servicesConfigured {
 			// not configured to expose this service
 			continue
 		}
@@ -1172,4 +1200,13 @@ func dumpResponse(r *http.Response, includeBody bool) (string, error) {
 		}
 	}
 	return buf.String(), nil
+}
+
+func floatSecondsToDuration(seconds float64) time.Duration {
+	durationFloat := seconds * float64(time.Second)
+	if durationFloat > math.MaxInt64 {
+		// Avoid overflow
+		return math.MaxInt64
+	}
+	return time.Duration(durationFloat)
 }

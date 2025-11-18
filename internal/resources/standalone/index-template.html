@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="grpc-web-form.css">
     <script src="grpc-web-form.js"></script>
 
-    <link rel=stylesheet href=pretty-print-json.css>
+    <link rel=stylesheet href=pretty-print-json.dark-mode.css>
     <script src=pretty-print-json.min.js></script>
 
     <style>
@@ -63,24 +63,17 @@
     .heading {
       max-width: 2560px;
       margin: 0;
-      padding: 32px 24px;
+      padding: 7px 30px;
       color: white;
       background: linear-gradient(to bottom right, #0C4348, #317178, #5F8C8C)
     }
 
-    .heading h1 {
-      font-weight: normal;
-      font-size: 35px;
-      margin: 0 0 12px 0;
-      padding: 0;
+    .heading h3 {
+      margin: 0;
     }
 
-    .heading h2 {
-      font-weight: normal;
-      font-size: 24px;
-      color: #c0f0ff;
+    .heading h4 {
       margin: 0;
-      padding: 0;
     }
 
     .target {
@@ -90,10 +83,8 @@
     }
 
     img.grpc-logo {
-      width: 100px;
-      margin-bottom: 6px;
+      width: 60px;
       margin-right: 8px;
-      margin-top: 3px;
     }
 
     #grpc-form {
@@ -118,10 +109,16 @@
   <body>
     <div class="full-width-heading">
       <div class="heading">
-        <h1><img class="grpc-logo" src="grpc-logo.png" alt="GRPC"/> Web UI</h1>
-        {{ if not (eq .Target "") }}
-          <h2>Connected to <span class="target">{{ .Target }}</span></h2>
-        {{ end }}
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center;">
+            <img class="grpc-logo" src="grpc-logo.png" alt="GRPC"/>
+            <h3>Web UI</h3>
+          </div>
+          {{ if not (eq .Target "") }}
+            <h4>Connected to <span class="target">{{ .Target }}</span></h4>
+          {{ end }}
+        </div>
+
       </div>
     </div>
     {{.WebFormContents}}

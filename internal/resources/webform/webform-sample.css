@@ -770,6 +770,10 @@ button#grpc-history-clear, button#grpc-history-save {
 
 /* Dark mode - automatically detects system preference */
 @media (prefers-color-scheme: dark) {
+    .grpc-metadata-table {
+        color: #e1e4e8;
+    }
+
     #grpc-form {
         background-color: #1a1a1a;
         color: #e1e4e8;

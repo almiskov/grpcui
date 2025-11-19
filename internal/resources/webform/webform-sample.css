@@ -227,6 +227,10 @@ table#grpc-request-metadata-form {
     border: 1px solid #888;
 }
 
+.grpc-request-metadata-wrapper > h4 {
+    margin: 0;
+}
+
 #grpc-request-metadata {
     margin-bottom: 20px;
 }

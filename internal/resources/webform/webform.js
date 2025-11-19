@@ -2282,14 +2282,10 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
             var hdrs = $("#grpc-response-headers");
             hdrs.empty();
             for (var i = 0; i < responseData.headers.length; i++) {
-                var hdrRow = $('<tr>');
-                hdrs.append(hdrRow);
-                var hdrCell = $('<td>');
-                hdrCell.text(responseData.headers[i].name);
-                hdrRow.append(hdrCell);
-                hdrCell = $('<td>');
-                hdrCell.text(responseData.headers[i].value);
-                hdrRow.append(hdrCell);
+                var hdrItem = $('<code>');
+                hdrItem.addClass('grpc-metadata-item')
+                hdrItem.text(`${responseData.headers[i].name}: ${responseData.headers[i].value}`)
+                hdrs.append(hdrItem);
             }
         } else {
             $("#grpc-response-headers").html('<tr><td class="none">None</td></tr>');
@@ -2348,14 +2344,10 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
             var tlrs = $("#grpc-response-trailers");
             tlrs.empty();
             for (i = 0; i < responseData.trailers.length; i++) {
-                var tlrRow = $('<tr>');
-                tlrs.append(tlrRow);
-                var tlrCell = $('<td>');
-                tlrCell.text(responseData.trailers[i].name);
-                tlrRow.append(tlrCell);
-                tlrCell = $('<td>');
-                tlrCell.text(responseData.trailers[i].value);
-                tlrRow.append(tlrCell);
+                var tlrRow = $('<code>');
+                tlrRow.addClass('grpc-metadata-item')
+                tlrRow.text(`${responseData.trailers[i].name}: ${responseData.trailers[i].value}`)
+                tlrs.append(tlrRow)
             }
         } else {
             $("#grpc-response-trailers").html('<tr><td class="none">None</td></tr>');

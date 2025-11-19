@@ -52,8 +52,12 @@
 
           <div class="request-response-tab-response">
             <h3>Response</h3>
-            <h4>Headers</h4>
-            <table class="grpc-metadata-table" id="grpc-response-headers"></table>
+
+            <div class="grpc-metadata-table-wrapper">
+              <h4>Headers:</h4>
+              <div class="grpc-metadata-table" id="grpc-response-headers"></div>
+            </div>
+
             <h4>Data</h4>
             <div id="grpc-response-req-stats"></div>
             <div class="grpc-response-messages" id="grpc-response-data"></div>
@@ -69,8 +73,11 @@
                 </div>
               </div>
             </div>
-            <h4>Trailers</h4>
-            <table class="grpc-metadata-table" id="grpc-response-trailers"></table>
+
+            <div class="grpc-metadata-table-wrapper">
+              <h4>Trailers:</h4>
+              <div class="grpc-metadata-table" id="grpc-response-trailers"></div>
+            </div>
           </div>
         </div>
       </div>

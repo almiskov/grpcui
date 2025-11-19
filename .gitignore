@@ -3,3 +3,5 @@ VERSION
 .idea/
 *.iml
 .tmp/
+.vscode
+bin

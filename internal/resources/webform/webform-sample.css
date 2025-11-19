@@ -506,6 +506,29 @@ table#grpc-request-metadata-form {
     margin: 2px;
 }
 
+.grpc-metadata-table-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.grpc-metadata-table-wrapper > h4 {
+    margin-right: 12px;
+}
+
+.grpc-metadata-table {
+    display: flex;
+}
+
+.grpc-metadata-item {
+    border-radius: 12px;
+    background-color: #6c757d;
+    padding: 4px 15px;
+}
+
+.grpc-metadata-item:not(:last-child) {
+    margin-right: 10px;
+}
+
 .grpc-metadata-table td, .grpc-metadata-table th {
     padding: 8px;
     border: 1px solid #eee;
@@ -541,10 +564,6 @@ textarea.grpc-response-textarea {
     padding-bottom: 8px;
     color: #800;
     font-style: italic;
-}
-
-#grpc-response-headers {
-    margin-bottom: 16px;
 }
 
 #grpc-response-data {
@@ -756,13 +775,13 @@ button#grpc-history-clear, button#grpc-history-save {
     }
 
     #grpc-form {
-        background-color: #1a1a1a;
+        background-color: #212529;
         color: #e1e4e8;
         color-scheme: dark;
     }
 
     body {
-        background-color: #1a1a1a;
+        background-color: #212529;
         color: #e1e4e8;
     }
 
@@ -824,7 +843,7 @@ button#grpc-history-clear, button#grpc-history-save {
     }
 
     #grpc-form #grpc-request-response ul.ui-tabs-nav {
-        background: #161b22;
+        background: #212529;
         border: none;
         padding: 0;
     }
@@ -852,9 +871,9 @@ button#grpc-history-clear, button#grpc-history-save {
 
     #grpc-form #grpc-request-response li.ui-tabs-active {
         border-color: #444c56;
-        border-bottom-color: #1a1a1a;
+        border-bottom-color: #212529;
         color: #f0f6fc;
-        background: #1a1a1a;
+        background: #212529;
     }
 
     #grpc-form #grpc-request-response li.ui-tabs-active a {
@@ -863,18 +882,18 @@ button#grpc-history-clear, button#grpc-history-save {
 
     #grpc-form #grpc-request-response .grpc-tabcontent.ui-tabs-panel {
         border-color: #444c56;
-        background-color: #1a1a1a !important;
+        background-color: #212529 !important;
         color: #e1e4e8;
     }
 
     #grpc-form .ui-tabs-panel {
-        background-color: #1a1a1a !important;
+        background-color: #212529 !important;
         color: #e1e4e8;
     }
 
     #grpc-form #grpc-request-examples-container {
         border-color: #333;
-        background-color: #1a1a1a;
+        background-color: #212529;
     }
 
     #grpc-form #grpc-request-examples-container h3 {
@@ -900,7 +919,7 @@ button#grpc-history-clear, button#grpc-history-save {
     }
 
     #grpc-form #grpc-request-form div.input_container {
-        background-color: #1a1a1a;
+        background-color: #212529;
     }
 
     #grpc-form #grpc-request-form div.oneof {
@@ -956,7 +975,7 @@ button#grpc-history-clear, button#grpc-history-save {
     }
 
     #grpc-form #grpc-response-data div.output_container {
-        background-color: #1a1a1a;
+        background-color: #212529;
         color: #e1e4e8;
     }
 
@@ -964,7 +983,7 @@ button#grpc-history-clear, button#grpc-history-save {
     #grpc-form #grpc-response-data pre,
     #grpc-form #grpc-response-data code {
         color: #e1e4e8;
-        background-color: #1a1a1a;
+        background-color: #212529;
     }
 
     #grpc-form #grpc-response-data .null {
@@ -1010,12 +1029,12 @@ button#grpc-history-clear, button#grpc-history-save {
     }
 
     #grpc-form #grpc-history-list .history-item-panel {
-        background-color: #1a1a1a;
+        background-color: #212529;
         border: 1px solid #333;
     }
 
     #grpc-form .grpc-curl-panel {
-        background-color: #1a1a1a;
+        background-color: #212529;
         border-color: #333;
     }
 
@@ -1128,7 +1147,7 @@ button#grpc-history-clear, button#grpc-history-save {
 }
 
 .request-response-tab-divider {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #606166;
 }
 
 .request-response-tab-response {
@@ -1137,7 +1156,7 @@ button#grpc-history-clear, button#grpc-history-save {
 
 .grpc-response-json-container {
     max-height: 300px;
-    border: 1px solid #ccc;
+    border: 1px solid #606166;
     padding: 0 10px;
     overflow: scroll;
 }

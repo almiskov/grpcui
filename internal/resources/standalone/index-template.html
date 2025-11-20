@@ -2,128 +2,54 @@
   <head>
     <title>gRPC UI</title>
 
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png" />
 
     <script src="jquery-3.4.1.min.js"></script>
 
-    <link rel="stylesheet" href="jquery-ui-1.12.1.min.css">
+    <link rel="stylesheet" href="jquery-ui-1.12.1.min.css" />
     <script src="jquery-ui-1.12.1.min.js"></script>
 
-    <link rel="stylesheet" href="grpc-web-form.css">
+    <link rel="stylesheet" href="grpc-web-form.css" />
     <script src="grpc-web-form.js"></script>
 
-    <link rel=stylesheet href=pretty-print-json.dark-mode.css>
-    <script src=pretty-print-json.min.js></script>
+    <link rel="stylesheet" href="pretty-print-json.dark-mode.css" />
+    <script src="pretty-print-json.min.js"></script>
 
-    <style>
-    * {
-      box-sizing: border-box;
-    }
+    <link rel="stylesheet" href="index.css" />
 
-    :after, :before {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 20px;
-      color: #333;
-      display: inline-block;
-      min-width: 100%;
-    }
-
-    button, input, select, textarea {
-      line-height: inherit;
-      font: inherit;
-      color: inherit;
-    }
-
-    input, select, textarea {
-      border-radius: 5px;
-      padding: 4px 8px;
-    }
-
-    img {
-      border: 0;
-      vertical-align: middle;
-    }
-
-    h1, h2, h3, h4, h5 {
-      line-height: 1.1;
-    }
-
-    table {
-      border-spacing: 0;
-      border-collapse: collapse;
-    }
-
-    .full-width-heading {
-      width: 100%;
-      background-color: #186064;
-    }
-
-    .heading {
-      max-width: 2560px;
-      margin: 0;
-      padding: 7px 30px;
-      color: white;
-      background: linear-gradient(to bottom right, #0C4348, #317178, #5F8C8C)
-    }
-
-    .heading h3 {
-      margin: 0;
-    }
-
-    .heading h4 {
-      margin: 0;
-    }
-
-    .target {
-      font-style: italic;
-      color: #9ff;
-      padding-left: 4px;
-    }
-
-    img.grpc-logo {
-      width: 60px;
-      margin-right: 8px;
-    }
-
-    #grpc-form {
-      margin: 0;
-      padding: 24px;
-    }
-    </style>
     <script>
-    // ZOMG this is awful. This beast comes from https://developer.mozilla.org/en-US/docs/Web/API/document/cookie
-    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)_grpcui_csrf_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    // add CSRF token to all non-GET requests
-    $(document).ajaxSend(function(event, request, settings) {
+      // ZOMG this is awful. This beast comes from https://developer.mozilla.org/en-US/docs/Web/API/document/cookie
+      var cookieValue = document.cookie.replace(
+        /(?:(?:^|.*;\s*)_grpcui_csrf_token\s*\=\s*([^;]*).*$)|^.*$/,
+        "$1"
+      );
+      // add CSRF token to all non-GET requests
+      $(document).ajaxSend(function (event, request, settings) {
         if (settings.method !== "GET") {
-            request.setRequestHeader("x-grpcui-csrf-token", cookieValue);
+          request.setRequestHeader("x-grpcui-csrf-token", cookieValue);
         }
-    });
+      });
     </script>
-    {{ range .AddlResources }}
-      {{ . }}
-    {{ end }}
+    {{ range .AddlResources }} {{ . }} {{ end }}
   </head>
   <body>
     <div class="full-width-heading">
       <div class="heading">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <div style="display: flex; align-items: center;">
-            <img class="grpc-logo" src="grpc-logo.png" alt="GRPC"/>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <div style="display: flex; align-items: center">
+            <img class="grpc-logo" src="grpc-logo.png" alt="GRPC" />
             <h3>Web UI</h3>
           </div>
           {{ if not (eq .Target "") }}
-            <h4>Connected to <span class="target">{{ .Target }}</span></h4>
+          <h4>Connected to <span class="target">{{ .Target }}</span></h4>
           {{ end }}
         </div>
-
       </div>
     </div>
     {{.WebFormContents}}

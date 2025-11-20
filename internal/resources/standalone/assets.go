@@ -7,7 +7,7 @@ import (
 
 const IndexTemplateName = "index-template.html"
 
-//go:embed *.html *.css *.png *.js
+//go:embed *.html *.css *.png *.js *.ttf
 var res embed.FS
 
 func IndexTemplate() []byte {

@@ -1,18 +1,22 @@
 <div id="grpc-form">
   <div class="grpc-desc">
-    <div class="grpc-form-label">Service name:</div>
+    <div class="grpc-desc-service">
+      <div class="grpc-desc-label">Service:</div>
     
-    <select name="grpc-service" id="grpc-service">
-      {{ range .Services }}
-      <option value="{{.}}">{{.}}</option>
-      {{ end }}
-    </select>
+      <select name="grpc-service" id="grpc-service">
+        {{ range .Services }}
+        <option value="{{.}}">{{.}}</option>
+        {{ end }}
+      </select>
+    </div>
 
-    <div class="grpc-form-label">Method name:</div>
+    <div class="grpc-desc-method">
+      <div class="grpc-desc-label">Method:</div>
     
-    <select name="grpc-method" id="grpc-method">
-      <!-- populated by JavaScript when grpc-service is selected -->
-    </select>
+      <select name="grpc-method" id="grpc-method">
+        <!-- populated by JavaScript when grpc-service is selected -->
+      </select>
+    </div>
   </div>
 
   <div id="grpc-container">

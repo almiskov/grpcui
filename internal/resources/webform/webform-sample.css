@@ -8,6 +8,24 @@
     display: flex;
 }
 
+.grpc-desc > div:not(:last-child) {
+    margin-right: 60px;
+}
+
+.grpc-desc select {
+    padding: 8px 16px;
+}
+
+.grpc-desc-service, .grpc-desc-method {
+    display: flex;
+    align-items: center;
+}
+
+.grpc-desc-label {
+    font-size: medium;
+    margin-right: 16px;
+}
+
 button#grpc-descriptions-toggle {
     position: absolute;
     z-index: 3;
@@ -17,14 +35,6 @@ button#grpc-descriptions-toggle {
     border: none;
     background: white;
     font-size: 150%;
-}
-
-.grpc-desc div.grpc-form-label {
-    font-size: 110%;
-    width: 124px;
-    line-height: 30px;
-    text-align: right;
-    margin-right: 12px;
 }
 
 #grpc-descriptions {
@@ -793,7 +803,6 @@ button#grpc-history-clear, button#grpc-history-save {
         color: #63a4ff;
     }
 
-    #grpc-form .grpc-form-label,
     #grpc-form h3,
     #grpc-form h4 {
         color: #f0f6fc;

@@ -59,6 +59,7 @@ button#grpc-descriptions-toggle {
 
 #grpc-container {
     display: flex;
+    min-height: 85vh;
 }
 
 #grpc-request-examples-container {
@@ -1153,6 +1154,7 @@ button#grpc-history-clear, button#grpc-history-save {
     grid-auto-flow: column;
     grid-template-columns: 49.5% .1% 49.5%;
     max-width: 96vw;
+    height: 100%;
 }
 
 .request-response-tab-request {
@@ -1165,11 +1167,14 @@ button#grpc-history-clear, button#grpc-history-save {
 
 .request-response-tab-response {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .grpc-response-json-container {
-    max-height: 300px;
+    max-height: 600px;
     border: 1px solid #606166;
+    border-radius: 5px;
     padding: 0 10px;
     overflow: scroll;
 }

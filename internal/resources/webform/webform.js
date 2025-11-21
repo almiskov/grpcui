@@ -530,7 +530,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
         }
 
         var table = makeTableContainer(container, pathLen);
-        table.addClass('grpc-request-table');
+        table.addClass('grpc-request-metadata-table');
         var children = [];
         var input = new Input(parent, children, value);
 
@@ -566,7 +566,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
         cell.addClass('array_button');
         var button = $('<button>');
         button.addClass('add');
-        button.text('+');
+        button.text('');
         cell.append(button);
         row.append(cell);
         cell = $('<td>');
@@ -622,7 +622,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
         cell.addClass('array_button');
         var button = $('<button>');
         button.addClass('delete');
-        button.text('X');
+        button.text('');
         cell.append(button);
         row.append(cell);
         button.click(function() {
@@ -2167,7 +2167,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
         tr = $('<tr class="metadataRow">');
         $("#grpc-request-metadata-form tr:last-of-type").before(tr);
 
-        tr.append('<td><button class="delete">X</button></td>');
+        tr.append('<td><button class="delete small"></button></td>');
         $("button.delete", tr).click(function() {
             $(this).closest('tr').remove();
         });
@@ -2288,7 +2288,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
                 hdrs.append(hdrItem);
             }
         } else {
-            $("#grpc-response-headers").html('<tr><td class="none">None</td></tr>');
+            $("#grpc-response-headers").html('<code class="none">None</code>');
         }
 
         if (responseData.requests && responseData.requests.total !== responseData.requests.sent) {
@@ -2350,7 +2350,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
                 tlrs.append(tlrRow)
             }
         } else {
-            $("#grpc-response-trailers").html('<tr><td class="none">None</td></tr>');
+            $("#grpc-response-trailers").html('<code class="none">None</code>');
         }
 
         var t = $("#grpc-request-response");
@@ -2734,7 +2734,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
                 result = 'OK';
             }
             accordion.append(`<div class="history-item-header" id="${id}">
-                <span class="history-item-delete"><button class="delete" id="delete-${id}">X</button></span>
+                <span class="history-item-delete"><button class="delete" id="delete-${id}"></button></span>
                 <span class="history-item-load">
                     <button class="load" ${valid ? '' : 'disabled'} id="load-${id}">Load</button>
                 </span>

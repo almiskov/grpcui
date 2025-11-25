@@ -562,12 +562,14 @@ table#grpc-request-metadata-form {
 
 .grpc-metadata-table {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .grpc-metadata-item {
     border-radius: 12px;
     background-color: #6c757d;
     padding: 4px 15px;
+    margin: 4px;
 }
 
 .grpc-metadata-item:not(:last-child) {

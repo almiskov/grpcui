@@ -53,12 +53,14 @@
             <h4>Data</h4>
             <div id="grpc-request-form"></div>
 
-            <h4>Timeout</h4>
-            <div id="grpc-request-timeout">
-              <input/> seconds
+            <div class="grpc-request-send-controls">
+              <div id="grpc-request-timeout">
+                <label for="grpcRequestTimeoutInput"><small>Timeout</small></label>
+                <input id="grpcRequestTimeoutInput"/>seconds
+              </div>
+  
+              <button class="grpc-invoke" disabled>Invoke</button>
             </div>
-
-            <button class="grpc-invoke" disabled>Invoke</button>
           </div>
 
           <div class="request-response-tab-divider"></div>

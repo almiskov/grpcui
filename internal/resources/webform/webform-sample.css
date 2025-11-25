@@ -164,8 +164,14 @@ ol#grpc-request-examples {
     font-weight: 500;
 }
 
+.grpc-request-send-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
 #grpc-form button {
-    border-radius: 3px;
+    border-radius: 5px;
     background: #f0f0f0;
     border-top: 1px solid #ccc;
     border-right: 1px solid #bbb;
@@ -192,12 +198,14 @@ textarea#grpc-request-raw-text {
     height: 200px;
 }
 
-#grpc-request-timeout {
-    margin-bottom: 20px;
-}
-
 #grpc-request-timeout input {
     border: 1px solid #888;
+    margin-right: 5px;
+}
+
+#grpc-request-timeout label {
+    display: block;
+    margin-bottom: 5px;
 }
 
 table#grpc-request-metadata-form {
@@ -244,7 +252,7 @@ table#grpc-request-metadata-form {
 }
 
 #grpc-request-form {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     overflow: scroll;
 }
 
@@ -310,7 +318,7 @@ table#grpc-request-metadata-form {
 }
 
 #grpc-request-form td input[type=checkbox] {
-    margin: 0 8px 0 18px;
+    margin-left: 14px;
 }
 
 #grpc-request-form td input[type=radio] {

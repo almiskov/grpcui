@@ -405,10 +405,9 @@ table#grpc-request-metadata-form {
 
 #grpc-form .grpc-request-metadata-table button {
     padding: 0;
-    width: 28px;
-    height: 28px;
-    border: none;
-    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #444c56;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -416,36 +415,21 @@ table#grpc-request-metadata-form {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#grpc-form .grpc-request-metadata-table button.small {
-    width: 20px;
-    height: 20px;
-}
-
-#grpc-form .grpc-request-metadata-table button.add {
-    background-color: #4CAF50;
+    background-color: #21262d;
+    transition: background-color 0.1s ease, transform 0.2s ease;
 }
 
 #grpc-form .grpc-request-metadata-table button.add::before {
     content: "+";
 }
 
-#grpc-form .grpc-request-metadata-table button.add:hover {
-  background-color: #45a049;
-}
-
-#grpc-form .grpc-request-metadata-table button.delete {
-    background-color: #f44336;
+#grpc-form .grpc-request-metadata-table button:hover {
+    background: #30363d;
+    border-color: #606166;
 }
 
 #grpc-form .grpc-request-metadata-table button.delete::before {
-    content: "×";
-}
-
-#grpc-form .grpc-request-metadata-table button.delete:hover {
-  background-color: #da190b;
+    content: "-";
 }
 
 #grpc-request-form textarea:disabled {

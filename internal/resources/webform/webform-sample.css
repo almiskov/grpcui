@@ -479,11 +479,19 @@ table#grpc-request-metadata-form {
 }
 
 #grpc-request-form div.grpc-timestamp {
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 #grpc-request-form div.grpc-timestamp > input {
-    margin: 4px;
+    margin-right: 8px;
+}
+
+#grpc-request-form div.grpc-timestamp > button {
+    height: 25px;
+    padding: 0px 8px;
+    font-size: small;
+    border-radius: 5px;
 }
 
 #grpc-request-form .invalid-input {

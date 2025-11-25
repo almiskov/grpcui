@@ -1637,6 +1637,8 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
             date.val(nowSplit[0]);
             time.val(nowSplit[1]);
             input.setValue(now);
+
+            console.log(now)
         });
         return input;
     }

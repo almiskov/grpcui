@@ -2,7 +2,7 @@
   <div class="grpc-desc">
     <div class="grpc-desc-service">
       <div class="grpc-desc-label">Service:</div>
-    
+
       <select name="grpc-service" id="grpc-service">
         {{ range .Services }}
         <option value="{{.}}">{{.}}</option>
@@ -12,35 +12,49 @@
 
     <div class="grpc-desc-method">
       <div class="grpc-desc-label">Method:</div>
-    
+
       <select name="grpc-method" id="grpc-method">
         <!-- populated by JavaScript when grpc-service is selected -->
       </select>
     </div>
+
+    {{ if not (eq .Target "") }}
+    <div class="grpc-desc-target"><i>Connected to {{.Target}}</i></div>
+    {{ end }}
   </div>
 
   <div id="grpc-container">
     <div id="grpc-request-examples-container" style="display: none">
       <h3>Examples</h3>
-      <ol id="grpc-request-examples"/>
+      <ol id="grpc-request-examples" />
     </div>
     <div id="grpc-request-response">
       <ul>
-          <li id="#grpc-request-response-tab-button"><a href="#grpc-request-response-tab">Request-Response</a></li>
-          <li id="#grpc-history-tab-button"><a href="#grpc-history-tab">History</a></li>
+        <li id="#grpc-request-response-tab-button">
+          <a href="#grpc-request-response-tab">Request-Response</a>
+        </li>
+        <li id="#grpc-history-tab-button">
+          <a href="#grpc-history-tab">History</a>
+        </li>
       </ul>
       <div class="grpc-tabcontent" id="grpc-request-response-tab">
         <div class="request-response-tab">
           <div class="request-response-tab-request">
             <h3>Request</h3>
-            
+
             <div class="grpc-request-metadata-wrapper">
               <h4>Metadata</h4>
               <div id="grpc-request-metadata">
-                <table class="grpc-request-metadata-table" id="grpc-request-metadata-form">
+                <table
+                  class="grpc-request-metadata-table"
+                  id="grpc-request-metadata-form"
+                >
                   <tr>
                     <td>
-                      <button id="grpc-request-metadata-add-row" class="add small"></button>
+                      <button
+                        id="grpc-request-metadata-add-row"
+                        class="add small"
+                      ></button>
                     </td>
                     <td colspan="2">
                       <span class="add-row-label">Add item</span>
@@ -55,10 +69,12 @@
 
             <div class="grpc-request-send-controls">
               <div id="grpc-request-timeout">
-                <label for="grpcRequestTimeoutInput"><small>Timeout</small></label>
-                <input id="grpcRequestTimeoutInput"/>seconds
+                <label for="grpcRequestTimeoutInput"
+                  ><small>Timeout</small></label
+                >
+                <input id="grpcRequestTimeoutInput" />seconds
               </div>
-  
+
               <button class="grpc-invoke" disabled>Invoke</button>
             </div>
           </div>
@@ -79,13 +95,17 @@
               <div class="grpc-response-messages" id="grpc-response-data"></div>
               <div id="grpc-response-error">
                 <div id="grpc-response-error-summary">
-                  <span id="grpc-response-error-desc"></span> <span id="grpc-response-error-num"></span>
+                  <span id="grpc-response-error-desc"></span>
+                  <span id="grpc-response-error-num"></span>
                 </div>
-                <div id = "response-error-extra">
+                <div id="response-error-extra">
                   <span id="grpc-response-error-msg"></span>
                   <div id="grpc-response-error-details-container">
                     <h4>Error Details:</h4>
-                    <div class="grpc-response-messages" id="grpc-response-error-details"></div>
+                    <div
+                      class="grpc-response-messages"
+                      id="grpc-response-error-details"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -93,16 +113,22 @@
 
             <div class="grpc-metadata-table-wrapper">
               <h4>Trailers:</h4>
-              <div class="grpc-metadata-table" id="grpc-response-trailers"></div>
+              <div
+                class="grpc-metadata-table"
+                id="grpc-response-trailers"
+              ></div>
             </div>
           </div>
         </div>
       </div>
       <div class="grpc-tabcontent" id="grpc-history-tab">
-        <button class="grpc-history-clear" id="grpc-history-clear">Clear History</button>
-        <button class="grpc-history-save" id="grpc-history-save">Save History</button>
-        <div class="grpc-history-list" id="grpc-history-list">
-        </div>
+        <button class="grpc-history-clear" id="grpc-history-clear">
+          Clear History
+        </button>
+        <button class="grpc-history-save" id="grpc-history-save">
+          Save History
+        </button>
+        <div class="grpc-history-list" id="grpc-history-list"></div>
       </div>
     </div>
   </div>
@@ -111,35 +137,35 @@
 <datalist id="grpc-message-types"></datalist>
 
 <script type="application/javascript">
-(function() {
-    var services = {
-    {{- range .Services}}
-        "{{.}}": [
-        {{- range $i, $elt := index $.Methods .}}
-            "{{$elt}}",
-        {{- end}}
-        ],
-    {{- end}}
-    };
-    var svcDescs = {
-    {{- range $name, $desc := .SvcDescs}}
-        "{{$name}}": "{{$desc}}",
-    {{- end}}
-    };
-    var mtdDescs = {
-    {{- range $name, $desc := .MtdDescs}}
-        "{{$name}}": "{{$desc}}",
-    {{- end}}
-    };
-    var headers = [
-    {{- range .DefaultMetadata}}
-        {"name": "{{.Name}}", "value": "{{.Value}}"},
-    {{- end}}
-    ];
+  (function() {
+      var services = {
+      {{- range .Services}}
+          "{{.}}": [
+          {{- range $i, $elt := index $.Methods .}}
+              "{{$elt}}",
+          {{- end}}
+          ],
+      {{- end}}
+      };
+      var svcDescs = {
+      {{- range $name, $desc := .SvcDescs}}
+          "{{$name}}": "{{$desc}}",
+      {{- end}}
+      };
+      var mtdDescs = {
+      {{- range $name, $desc := .MtdDescs}}
+          "{{$name}}": "{{$desc}}",
+      {{- end}}
+      };
+      var headers = [
+      {{- range .DefaultMetadata}}
+          {"name": "{{.Name}}", "value": "{{.Value}}"},
+      {{- end}}
+      ];
 
-    window.target = {{ .Target }};
-    window.gRPCurlOptions = {{ .GRPCurlOptions }};
+      window.target = {{ .Target }};
+      window.gRPCurlOptions = {{ .GRPCurlOptions }};
 
-    initGRPCForm(services, svcDescs, mtdDescs, '{{ .InvokeURI }}', '{{ .MetadataURI }}', {{ .Debug }}, headers);
-})();
+      initGRPCForm(services, svcDescs, mtdDescs, '{{ .InvokeURI }}', '{{ .MetadataURI }}', {{ .Debug }}, headers);
+  })();
 </script>

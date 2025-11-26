@@ -33,25 +33,6 @@
     {{ range .AddlResources }} {{ . }} {{ end }}
   </head>
   <body>
-    <div class="full-width-heading">
-      <div class="heading">
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          "
-        >
-          <div style="display: flex; align-items: center">
-            <img class="grpc-logo" src="grpc-logo.png" alt="GRPC" />
-            <h3>Web UI</h3>
-          </div>
-          {{ if not (eq .Target "") }}
-          <h4>Connected to <span class="target">{{ .Target }}</span></h4>
-          {{ end }}
-        </div>
-      </div>
-    </div>
     {{.WebFormContents}}
   </body>
 </html>

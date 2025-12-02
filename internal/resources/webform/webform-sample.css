@@ -5,15 +5,21 @@
 .grpc-desc {
     margin-bottom: 0;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.grpc-desc > div:not(:last-child) {
+.grpc-desc-service-method {
+    display: flex;
+}
+
+.grpc-desc-service {
     margin-right: 60px;
 }
 
 .grpc-desc-target {
     color: #e0e0e0;
-    margin: 0 0 0 auto;
+    padding: 10px 0;
 }
 
 .grpc-desc select {

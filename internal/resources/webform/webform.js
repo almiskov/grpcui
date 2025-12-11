@@ -1622,6 +1622,7 @@ window.initGRPCForm = function(services, svcDescs, mtdDescs, invokeURI, metadata
         date.datepicker({
                             dateFormat: "yy-mm-dd",
                             showButtonPanel: true,
+                            firstDay: 1,
                             onClose: validateDate,
                             onSelect: validateDate,
                             nextText: '\u02C3',
